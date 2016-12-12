@@ -1,0 +1,30 @@
+.genre-preview {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 250px;
+	height: 180px;
+	padding: 10px;
+	background-position: center center;
+	background-size: cover;
+}
+
+.genre-preview::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0, 0.3);
+}
+
+.genre-preview__title {
+	font-size: 18px;
+	position: relative;
+	margin: 0;
+	color: white;
+}
