@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import GenreList from './GenreList'
-import 'react-select/dist/react-select.css'
+import GenreList from '../components/GenreList'
 
-class App extends Component {
+class Index extends Component {
     static propTypes = {
         //articles: PropTypes.array.isRequired
     };
@@ -17,4 +16,4 @@ class App extends Component {
     }
 }
 
-export default App
+export default Index
