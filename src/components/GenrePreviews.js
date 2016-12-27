@@ -2,12 +2,20 @@ import React, { Component, PropTypes } from 'react'
 import GenrePreview from './GenrePreview'
 import { connect } from 'react-redux'
 import { loadGenrePreviews } from '../AC/genrePreviews'
+import theMovieDb from '../lib/themoviedb'
+import { rusify } from '../utils'
 
 class GenrePreviews extends Component {
 
 	componentDidMount() {
 		const { genre } = this.props
-        this.props.loadGenrePreviews(genre.id)
+        this.props.loadGenrePreviews(genre.id, {
+            callApi: theMovieDb.genres.getMovies,
+            callApiData: rusify({
+                id: genre.id
+            })
+        });
+        console.log('genrePreviewsMount');
     }
 
     getPreviews() {
@@ -17,7 +25,7 @@ class GenrePreviews extends Component {
     	// } else {
     	// 	return null
     	// }
-    	return genrePreviews[genre.id] ? genrePreviews[genre.id].map((preview) => (<GenrePreview key={preview.id} preview = {preview} />)) : null
+    	return genrePreviews[genre.id] ? genrePreviews[genre.id].map((preview) => (<GenrePreview key = {preview.id} preview = {preview} />)) : null
     }
 
     render() {

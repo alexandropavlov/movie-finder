@@ -1,10 +1,9 @@
 import { LOAD_GENRES, SUCCESS, FAIL, START } from '../constants'
 
-export function loadGenres() {
+export function loadGenres(data) {
     return {
         type: LOAD_GENRES,
-        callApi: {
-        	url: '/genre/movie/list'
-        }
+        callApi: data.callApi,
+        callApiData: data.callApiData
     }
 }

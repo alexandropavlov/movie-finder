@@ -7,6 +7,7 @@ export default (genresState = genres, action) => {
 
     switch (type) {
         case LOAD_GENRES:
+        	//debugger;
             return genresState.concat(action.response.genres)
     }
 
