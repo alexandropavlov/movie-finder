@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { IMAGES_LINK } from '../config'
-import '../styles/genre-preview.css';
+import { IMAGES_LINK } from '../../config'
+import './style.scss';
 
 class GenrePreview extends Component {
 
