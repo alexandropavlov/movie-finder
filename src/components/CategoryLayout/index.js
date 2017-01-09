@@ -14,11 +14,22 @@ class CategoryLayout extends Component {
             categoryId: null, 
             categoryName: null,
             page: null,
+            totalPages: null,
             movieList: null
         }
     }
 
     componentDidMount() {
+        this.update()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.page != prevProps.page) {
+            this.update()
+        }
+    }
+
+    update() {
         theMovieDb.genres.getMovies(rusify({
             id: this.props.id,
             page: this.props.page
@@ -29,6 +40,7 @@ class CategoryLayout extends Component {
               categoryId: data.id,
               categoryName: 'Название категории',
               page: data.page,
+              totalPages: data.total_pages,
               movieList: data.results
             });
         }, (response) => {
@@ -36,20 +48,17 @@ class CategoryLayout extends Component {
         })
     }
 
-    componentDidUpdate() {
-
-    }
-
     getMovies() {
         const movieList = this.state.movieList
         //console.log('getMovies movielist', !!movieList)
         return movieList ? movieList.map((movie, i) => (
             <MoviePreview key = {movie.id} movie = {movie}/>     
-        )) : null;
+        )) : null
     }
 
     getPaginator() {
-        return (<Paginator/>);
+        const basePath = `/category/${this.props.id}/`;
+        return this.state.page ? (<Paginator basePath = {basePath} total = {this.state.totalPages} current = {this.state.page} />) : null
     }
 
     render() {
