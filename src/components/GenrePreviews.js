@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { loadGenrePreviews } from '../AC/genrePreviews'
 import theMovieDb from '../lib/themoviedb'
 import { rusify } from '../utils'
+import { Link } from 'react-router'
 
 class GenrePreviews extends Component {
 
@@ -20,31 +21,20 @@ class GenrePreviews extends Component {
 
     getPreviews() {
     	const { genre, genrePreviews } = this.props
-    	// if (genrePreviews[genre.id]) {
-    	// 	return 
-    	// } else {
-    	// 	return null
-    	// }
+
     	return genrePreviews[genre.id] ? genrePreviews[genre.id].map((preview) => (<GenrePreview key = {preview.id} preview = {preview} />)) : null
     }
 
     render() {
-        const { genre} = this.props
-        //console.log('genre.id', genre.id)
-        //console.log('genrePreviews', genrePreviews)
-        //console.log('genrePreviews[genre.id]', genrePreviews[genre.id + ''])
-        //const foo = JSON.stringify(genrePreviews)
-        // for (key in genrePreviews) {
-        // 	console.log(key)
-        // }
-        // if (genrePreviews[genre.id]) {
-        // 	console.log('go fuck yourself')
-        // 	console.log('genrePreviews[genre.id]', genrePreviews[genre.id])
-        // }
+        const { genre } = this.props
+        const categoryLink = `/category/${genre.id}`;
 
         return (
 			<div>
-	            <p>{ genre.name }</p>
+	            <p className = "genre-list__item-name">{ genre.name }</p>
+                <div>
+                    <Link to = { categoryLink }>Показать еще</Link>
+                </div>
 	            { this.getPreviews() }
             </div>
         )

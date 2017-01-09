@@ -1,9 +1,10 @@
 import React, { Component, PropTypes }  from 'react'
-import GenrePreviews from './GenrePreviews'
+import GenrePreviews from '../GenrePreviews'
 import { connect } from 'react-redux'
-import { loadGenres } from '../AC/genres'
-import theMovieDb from '../lib/themoviedb'
-import { rusify } from '../utils'
+import { loadGenres } from '../../AC/genres'
+import theMovieDb from '../../lib/themoviedb'
+import { rusify } from '../../utils'
+import './style.scss'
 
 class GenreList extends Component {
     static propTypes = {
@@ -26,15 +27,15 @@ class GenreList extends Component {
         const { genres } = this.props
 
         const genrePreviews = genres.map(genre => (
-            <li key = { genre.id }>
+            <li className = "genre-list__item" key = { genre.id }>
                 <GenrePreviews genre={genre} />
             </li>
         ))
 
         return (
-            <div>
-                <h1>Жанры</h1>
-                <ul>
+            <div className = "genre-list">
+                <h2 className = "genre-list__title">Жанры</h2>
+                <ul className= "genre-list__list">
                     {genrePreviews}
                 </ul>
             </div>

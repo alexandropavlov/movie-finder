@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import CategoryLayout from '../components/CategoryLayout'
 
 class Category extends Component {
     static propTypes = {
@@ -7,7 +8,10 @@ class Category extends Component {
 
     render() {
         return (
-            <div>Категория</div>
+        	<div>
+            	<div>Категория</div>
+            	<CategoryLayout page = {this.props.params.page} id = {this.props.params.id} />
+            </div>
         )
     }
 }

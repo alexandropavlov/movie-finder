@@ -7,6 +7,7 @@ export default store => next => action => {
 
 	callApi(callApiData, (response) => {
 		// success
+		console.log('response', response);
 		next({...rest, response: JSON.parse(response)})
 	}, (response) => {
 		//error
