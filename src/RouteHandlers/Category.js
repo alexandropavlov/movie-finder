@@ -9,7 +9,6 @@ class Category extends Component {
     render() {
         return (
         	<div>
-            	<div>Категория</div>
             	<CategoryLayout page = {this.props.params.page} id = {this.props.params.id} />
             </div>
         )

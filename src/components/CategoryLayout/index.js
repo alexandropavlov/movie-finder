@@ -2,17 +2,20 @@ import React, { Component, PropTypes } from 'react'
 import theMovieDb from '../../lib/themoviedb'
 import { rusify } from '../../utils'
 import MoviePreview from '../MoviePreview'
+import { connect } from 'react-redux'
+import { loadGenres } from '../../AC/genres'
 import Paginator from '../Paginator'
 import './style.scss'
 
 class CategoryLayout extends Component {
+    static propTypes = {
+
+    }
 
     constructor() {
         super();
 
         this.state = {
-            categoryId: null, 
-            categoryName: null,
             page: null,
             totalPages: null,
             movieList: null
@@ -20,6 +23,10 @@ class CategoryLayout extends Component {
     }
 
     componentDidMount() {
+        this.props.loadGenres({
+            callApi: theMovieDb.genres.getList,
+            callApiData: rusify({})
+        })
         this.update()
     }
 
@@ -37,8 +44,6 @@ class CategoryLayout extends Component {
             let data = JSON.parse(response)
             console.log('data', data)
             this.setState({
-              categoryId: data.id,
-              categoryName: 'Название категории',
               page: data.page,
               totalPages: data.total_pages,
               movieList: data.results
@@ -48,12 +53,23 @@ class CategoryLayout extends Component {
         })
     }
 
+    getCategoryName() {
+        const { genres, id } = this.props
+        return genres ? genres.reduce((value, current) => current.id == id ? current.name : value, null) : null
+    }
+
     getMovies() {
-        const movieList = this.state.movieList
+        const { movieList, page } = this.state
+        const { genres } = this.props
         //console.log('getMovies movielist', !!movieList)
-        return movieList ? movieList.map((movie, i) => (
-            <MoviePreview key = {movie.id} movie = {movie}/>     
-        )) : null
+        return movieList ? movieList.map((movie, i) => {
+            const number = ((page - 1) * 20) + i + 1
+            return (
+                <li className = "category__item" key = {movie.id}>
+                    <MoviePreview movie = {movie} genres = {genres} number = {number} />
+                </li>
+            )   
+        }) : null
     }
 
     getPaginator() {
@@ -64,21 +80,16 @@ class CategoryLayout extends Component {
     render() {
         return (
             <div>
-                <p>{this.props.page}</p>
-                <div>{this.getMovies()}</div>
+                <h1 className = "category__name">{this.getCategoryName()}</h1>
+                <ul className = "category__list">{this.getMovies()}</ul>
                 {this.getPaginator()}
             </div>
         )
     }
 }
 
-CategoryLayout.propTypes = {
-//     article: PropTypes.shape({
-//         title: PropTypes.string.isRequired,
-//         comments: PropTypes.array,
-//         text: PropTypes.string
-//     }).isRequired
-}
-
-
-export default CategoryLayout
+export default connect(state => ({
+    genres: state.genres
+}), {
+    loadGenres
+})(CategoryLayout)

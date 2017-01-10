@@ -28,7 +28,7 @@ class Paginator extends Component {
 		    		const link = basePath + `${i}`;
 		    		pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
 		    	}
-		    	pageArr.push(<span>...</span>)
+		    	pageArr.push(<span key = "div-1">...</span>)
 		    	for (let i = total - this.margin + 1; i <= total; i++) {
 		    		const link = basePath + `${i}`;
 		    		pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
@@ -40,7 +40,7 @@ class Paginator extends Component {
 		    		const link = basePath + `${i}`;
 		    		pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
 		    	}
-		    	pageArr.push(<span>...</span>)
+		    	pageArr.push(<span key = "div-1">...</span>)
 		    	for (let i = current - this.margin; i <= total; i++) {
 		    		const link = basePath + `${i}`;
 		    		pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
@@ -48,20 +48,20 @@ class Paginator extends Component {
     		} else {
     			// current in between
     			console.log('current in between');
-    			for (let i = 1; i <= current + this.margin; i++) {
-		    		const link = basePath + `${i}`;
-		    		pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
-		    	}
-		    	pageArr.push(<span>...</span>)
+    			for (let i = 1; i <= this.margin; i++) {
+                    const link = basePath + `${i}`;
+                    pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
+                }
+		    	pageArr.push(<span key = "div-1">...</span>)
 		    	for (let i = current - this.margin; i <= current + this.margin; i++) {
 		    		const link = basePath + `${i}`;
 		    		pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
 		    	}
-		    	pageArr.push(<span>...</span>)
-		    	for (let i = current - this.margin; i <= total; i++) {
-		    		const link = basePath + `${i}`;
-		    		pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
-		    	}
+		    	pageArr.push(<span key = "div-2">...</span>)
+		    	for (let i = total - this.margin + 1; i <= total; i++) {
+                    const link = basePath + `${i}`;
+                    pageArr.push(<Link to = {link} key = {i}>{i}</Link>)
+                }
     		}
     	}
     	
