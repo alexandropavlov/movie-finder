@@ -1,8 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import theMovieDb from '../../lib/themoviedb'
+import { Link } from 'react-router'
 import './style.scss';
 
 class GenrePreview extends Component {
+    static propTypes = {
+        
+    }
 
     render() {
         const { preview } = this.props
@@ -20,22 +24,17 @@ class GenrePreview extends Component {
         } else {
             imgLink = '/images/no-image.png'
         }
+        const link = `/movie/${preview.id}`
         return (
-			<div className="genre-preview" style={{
-                backgroundImage: 'url(' + imgLink + ')'
-            }}>
-	            <h3 className="genre-preview__title">{ preview.title }</h3>
-            </div>
+            <Link to = {link}>
+    			<div className="genre-preview" style={{
+                    backgroundImage: 'url(' + imgLink + ')'
+                }}>
+    	            <h3 className="genre-preview__title">{ preview.title }</h3>
+                </div>
+            </Link>
         )
     }
-}
-
-GenrePreview.propTypes = {
-//     article: PropTypes.shape({
-//         title: PropTypes.string.isRequired,
-//         comments: PropTypes.array,
-//         text: PropTypes.string
-//     }).isRequired
 }
 
 

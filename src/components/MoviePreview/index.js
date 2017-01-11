@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import theMovieDb from '../../lib/themoviedb'
+import { Link } from 'react-router'
 import './style.scss'
 
 class MoviePreview extends Component {
@@ -46,6 +47,7 @@ class MoviePreview extends Component {
             size: 'w300',
             file: movie.poster_path
         })
+        const link = `/movie/${movie.id}`
         return (
         	<div className = "movie-preview">
                 <p className = "movie-preview__number">
@@ -56,9 +58,11 @@ class MoviePreview extends Component {
                      alt = {movie.title}
                 />
                 <div className = "movie-preview__content">
-                	<h3 className = "movie-preview__title">
-                        {movie.title}
-                    </h3>
+                    <Link to = {link} className = "movie-preview__link">
+                    	<h3 className = "movie-preview__title">
+                            {movie.title}
+                        </h3>
+                    </Link>
                     <p className = "movie-preview__original">
                         {movie.original_title} {this.getYear()}
                     </p>

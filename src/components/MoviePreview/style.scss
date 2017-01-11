@@ -11,26 +11,37 @@
 		width: 40px;
 		font-size: 12px;
 	}
+
 	&__img {
 		float: left;
 		width: 100px;
 		height: auto;
 	}
+
 	&__content {
 		margin-left: 150px;
 	}
-	&__title {
 
+	&__link {
+		color: #fff;
 	}
+
+	&__title {
+		
+	}
+
 	&__original {
 
 	}
+
 	&__genres {
 
 	}
+
 	&__rating {
 
 	}
+	
 	&__rating-number {
 		&.is-red {
 			color: red;

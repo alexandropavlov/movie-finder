@@ -3,6 +3,7 @@ import theMovieDb from '../../lib/themoviedb'
 import { rusify } from '../../utils'
 import { connect } from 'react-redux'
 import { loadGenres } from '../../AC/genres'
+import { browserHistory } from 'react-router'
 import './style.scss'
 
 class MovieLayout extends Component {
@@ -54,20 +55,29 @@ class MovieLayout extends Component {
                 file: data.poster_path
             })
             const backdropLink = theMovieDb.common.getImage({
-                size: 'w500',
+                size: 'w1920',
                 file: data.backdrop_path
             })
+            const showStyle = data.backdrop_path ? {backgroundImage: 'url('+ backdropLink +')'} : {}
+            const showClass = data.backdrop_path ? 'movie__show has-image' : 'movie__show';
             return (
-                <div>
-                    <img src = {backdropLink}/>
-                    
-                    <div className = "content">
-                        <h1 className = "movie__name">{data.title}</h1>
-                        <p>{data.original_title}</p>
-                        <p>{data.overview}</p>    
+                <div className = "movie">
+                    <div className = {showClass} style = {showStyle}>
+                        <div className = "movie__content">
+                            <div className = "container">
+                                <h1 className = "movie__name">{data.title}</h1>
+                                <p>{data.original_title}</p>
+                                <p>{data.overview}</p>    
+                            </div>
+                        </div>
                     </div>
+                    <button onClick={browserHistory.goBack}>Back</button>
+
                     
-                    <img src = {posterLink}/>
+                    
+                    <div className = "container">
+                        <img src = {posterLink}/>
+                    </div>
                 </div>
             )
         } else {
