@@ -77,7 +77,7 @@ class Paginator extends Component {
     getNextButton() {
     	const { basePath, current, total } = this.props
     	const link = basePath + `${current + 1}`
-    	return current != total ? (<Link to = {link}>next</Link>) : (<button>prev</button>)
+    	return current != total ? (<Link to = {link}>next</Link>) : (<button>next</button>)
     }
 
     render() {

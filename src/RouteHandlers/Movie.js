@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import MovieLayout from '../components/MovieLayout'
 
 class Movie extends Component {
     static propTypes = {
@@ -7,7 +8,7 @@ class Movie extends Component {
 
     render() {
         return (
-            <div>Фильм</div>
+            <MovieLayout id = {this.props.params.id}/>
         )
     }
 }

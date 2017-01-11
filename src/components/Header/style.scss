@@ -1,9 +1,13 @@
+$bgcolor: #221f1f; 
+
 .header {
 	height: 70px;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	background-color: #fff;
+	background-color: $bgcolor;
 	z-index: 20;
+	box-shadow: 0 5px 10px 0 rgba($bgcolor, .8);
 }
+

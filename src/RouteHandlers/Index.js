@@ -9,7 +9,7 @@ class Index extends Component {
     render() {
 
         return (
-            <div>
+            <div className = "container">
                 <GenreList/>
             </div>
         )

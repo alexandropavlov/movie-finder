@@ -1,0 +1,47 @@
+.genre-previews {
+
+	&__name {
+		text-transform: capitalize;
+	}
+
+	&__list {
+		margin: 0 -5px;
+	}
+
+	&__more {
+		box-sizing: border-box;
+		display: inline-block;
+		width: 310px;
+		height: 180px;
+		margin: 0 5px;
+		text-align: center;
+		font-size: 0;
+		
+		&::before {
+			content: "";
+			display: inline-block;
+			vertical-align: middle;
+			width: 0;
+			height: 100%;
+		}
+	}
+
+	&__more-link {
+		display: inline-block;
+		vertical-align: middle;
+		width: 230px;
+		height: 54px;
+		border: 1px solid #fff;
+		border-radius: 25px;
+		font-size: 16px;
+		line-height: 54px;
+		color: #fff;
+		text-decoration: none;
+		transition: .3s;
+		
+		&:hover {
+			background-color: #fff;
+			color: #000;
+		}
+	}
+}

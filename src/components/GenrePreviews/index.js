@@ -1,12 +1,16 @@
 import React, { Component, PropTypes } from 'react'
-import GenrePreview from './GenrePreview'
+import GenrePreview from '../GenrePreview'
 import { connect } from 'react-redux'
-import { loadGenrePreviews } from '../AC/genrePreviews'
-import theMovieDb from '../lib/themoviedb'
-import { rusify } from '../utils'
+import { loadGenrePreviews } from '../../AC/genrePreviews'
+import theMovieDb from '../../lib/themoviedb'
+import { rusify } from '../../utils'
 import { Link } from 'react-router'
+import './style.scss'
 
 class GenrePreviews extends Component {
+    static propTypes = {
+
+    }
 
 	componentDidMount() {
 		const { genre } = this.props
@@ -30,25 +34,18 @@ class GenrePreviews extends Component {
         const categoryLink = `/category/${genre.id}`;
 
         return (
-			<div>
-	            <p className = "genre-list__item-name">{ genre.name }</p>
-                <div>
-                    <Link to = { categoryLink }>Показать еще</Link>
+			<div className = "genre-previews">
+	            <p className = "genre-previews__name">{ genre.name }</p>
+                <div className = "genre-previews__list">
+                    {this.getPreviews()}
+                    <div className = "genre-previews__more">
+                        <Link to = { categoryLink } className = "genre-previews__more-link">Показать еще</Link>
+                    </div>
                 </div>
-	            { this.getPreviews() }
             </div>
         )
     }
 }
-
-GenrePreviews.propTypes = {
-//     article: PropTypes.shape({
-//         title: PropTypes.string.isRequired,
-//         comments: PropTypes.array,
-//         text: PropTypes.string
-//     }).isRequired
-}
-
 
 export default connect((state) => ({
     genrePreviews: state.genrePreviews

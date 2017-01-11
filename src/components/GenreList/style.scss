@@ -1,4 +1,5 @@
 .genre-list {
+	padding-bottom: 50px;
 
 	&__title {
 
@@ -12,9 +13,5 @@
 
 	&__item {
 		
-	}
-
-	&__item-name {
-		text-transform: capitalize;
 	}
 }

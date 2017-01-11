@@ -61,7 +61,6 @@ class CategoryLayout extends Component {
     getMovies() {
         const { movieList, page } = this.state
         const { genres } = this.props
-        //console.log('getMovies movielist', !!movieList)
         return movieList ? movieList.map((movie, i) => {
             const number = ((page - 1) * 20) + i + 1
             return (
@@ -79,7 +78,7 @@ class CategoryLayout extends Component {
 
     render() {
         return (
-            <div>
+            <div className = "container">
                 <h1 className = "category__name">{this.getCategoryName()}</h1>
                 <ul className = "category__list">{this.getMovies()}</ul>
                 {this.getPaginator()}
