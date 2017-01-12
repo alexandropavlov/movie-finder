@@ -51,7 +51,7 @@ class MovieLayout extends Component {
         const { data } = this.state
         if (data) {
             const posterLink = theMovieDb.common.getImage({
-                size: 'w300',
+                size: 'w185',
                 file: data.poster_path
             })
             const backdropLink = theMovieDb.common.getImage({
@@ -59,7 +59,8 @@ class MovieLayout extends Component {
                 file: data.backdrop_path
             })
             const showStyle = data.backdrop_path ? {backgroundImage: 'url('+ backdropLink +')'} : {}
-            const showClass = data.backdrop_path ? 'movie__show has-image' : 'movie__show';
+            const showClass = data.backdrop_path ? 'movie__show has-image' : 'movie__show'
+            const productionCountries = data.production_countries.map((value) => value.iso_3166_1).join(', ')
             return (
                 <div className = "movie">
                     <div className = {showClass} style = {showStyle}>
@@ -70,13 +71,28 @@ class MovieLayout extends Component {
                                 <p>{data.overview}</p>    
                             </div>
                         </div>
-                    </div>
-                    <button onClick={browserHistory.goBack}>Back</button>
-
-                    
-                    
+                    </div>                
                     <div className = "container">
-                        <img src = {posterLink}/>
+                        <button className = "movie__back" onClick = {browserHistory.goBack}>Назад</button>
+                        <div className = "movie__table">
+                            <div className = "movie__row">
+                                <div className = "movie__poster">
+                                    <img src = {posterLink}/>
+                                </div>
+                                <div className = "movie__info">
+                                    <p>Страна: {productionCountries}</p>
+                                    <p>Слоган: {data.tagline}</p>
+                                    <p>Статус: {data.status}</p>
+                                    <p>Дата выхода: {data.release_date}</p>
+                                    <p>Время: {data.runtime} мин.</p>
+                                    <p>Бюджет: ${data.budget}</p>
+                                    <p>Сборы: ${data.revenue}</p>
+                                </div>
+                                <div className = "movie__credits">
+                                    <p>Тест</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )

@@ -32,4 +32,51 @@
 	&__name {
 		margin: 0;
 	}
+
+	&__back {
+		display: block;
+		width: 100px;
+		height: 40px;
+		margin: 20px 0;
+		padding: 0;
+		border: 1px solid #fff;
+		border-radius: 25px;
+		background-color: transparent;
+		font-size: 16px;
+		line-height: 40px;
+		color: #fff;
+		text-decoration: none;
+		cursor: pointer;
+		transition: .3s;
+		
+		&:hover {
+			background-color: #fff;
+			color: #000;
+		}
+	}
+
+	&__table {
+		display: table;
+	}
+
+	&__row {
+		display: table-row;
+	}
+
+	&__poster {
+		display: table-cell;
+		vertical-align: top;
+	}
+
+	&__info {
+		display: table-cell;
+		vertical-align: top;
+		padding: 0 10px;
+	}
+
+	&__credits {
+		display: table-cell;
+		vertical-align: top;
+		padding: 0 0 0 10px;
+	}
 }
