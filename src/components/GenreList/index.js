@@ -8,10 +8,7 @@ import './style.scss'
 
 class GenreList extends Component {
     static propTypes = {
-        //articles: PropTypes.array.isRequired,
-        //from accordion decorator
-        //isOpen: PropTypes.func.isRequired,
-        //toggleOpenItem: PropTypes.func.isRequired
+
     }
 
     componentDidMount() {

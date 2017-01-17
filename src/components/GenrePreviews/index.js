@@ -35,7 +35,7 @@ class GenrePreviews extends Component {
 
         return (
 			<div className = "genre-previews">
-	            <p className = "genre-previews__name">{ genre.name }</p>
+	            <h3 className = "genre-previews__name">{ genre.name }</h3>
                 <div className = "genre-previews__list">
                     {this.getPreviews()}
                     <div className = "genre-previews__more">

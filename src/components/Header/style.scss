@@ -9,5 +9,35 @@ $bgcolor: #221f1f;
 	background-color: $bgcolor;
 	z-index: 20;
 	box-shadow: 0 5px 10px 0 rgba($bgcolor, .8);
+
+	&__container {
+		height: 70px;
+		font-size: 0;
+
+		&::before {
+			content: "";
+			display: inline-block;
+			vertical-align: middle;
+			width: 0;
+			height: 100%;
+		}
+	}
+
+	&__logo {
+		display: inline-block;
+		vertical-align: middle;
+		width: 50px;
+		height: 50px;
+		margin: 0 10px;
+		background: url('/images/icon.png');
+	}
+
+	&__title {
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 24px;
+		color: #fff;
+		text-decoration: none;
+	}
 }
 

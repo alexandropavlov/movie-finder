@@ -1,0 +1,19 @@
+.paginator {
+	&__button {
+		background-color: transparent;
+		padding: 5px 10px;
+		border: 1px solid #fff;
+		font-size: 12px;
+		color: #fff;
+		text-decoration: none;
+	}
+
+	&__page {
+		background-color: transparent;
+		padding: 5px 10px;
+		border: 1px solid #fff;
+		font-size: 12px;
+		color: #fff;
+		text-decoration: none;
+	}
+}
