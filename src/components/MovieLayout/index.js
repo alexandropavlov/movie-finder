@@ -18,6 +18,7 @@ class MovieLayout extends Component {
 
         this.state = {
             data: null,
+            credits: null,
             trailers: null
         }
     }
@@ -37,6 +38,7 @@ class MovieLayout extends Component {
     }
 
     update() {
+        // get Movie Info
         theMovieDb.movies.getById(rusify({
             id: this.props.id
         }), (response) => {
@@ -44,6 +46,19 @@ class MovieLayout extends Component {
             console.log('data', data)
             this.setState({
               data
+            });
+        }, (response) => {
+            //error
+        })
+
+        // get Movie Credits
+        theMovieDb.movies.getCredits(rusify({
+            id: this.props.id
+        }), (response) => {
+            let credits = JSON.parse(response)
+            console.log('credits', credits)
+            this.setState({
+              credits
             });
         }, (response) => {
             //error
@@ -74,8 +89,60 @@ class MovieLayout extends Component {
             )
         } else {
             return null
-        }
-        
+        } 
+    }
+
+    getProductionCountries() {
+        const { data } = this.state
+        return (data && data.production_countries && data.production_countries.length)
+            ? (<p>Страна: {this.formatCountries(data.production_countries)}</p>)
+            : null
+    }
+
+    getTagline() {
+        const { data } = this.state
+        return (data && data.tagline) ? (<p>Слоган: {data.tagline}</p>) : null
+    }
+
+    getRuntime() {
+        const { data } = this.state
+        return (data && data.runtime) ? (<p>Время: {this.formatRuntime(data.runtime)}</p>) : null
+    }
+
+    getBudget() {
+       const { data } = this.state
+       return (data && data.budget) ? (<p>Бюджет: {this.formatMoney(data.budget)}</p>) : null
+    }
+
+    getRevenue() {
+        const { data } = this.state
+        return (data && data.revenue) ? (<p>Сборы: {this.formatMoney(data.revenue)}</p>) : null
+    }
+
+    getReleaseDate() {
+        const { data } = this.state
+        return (data && data.release_date) ? (<p>Дата выхода: {this.formatDate(data.release_date)}</p>) : null
+    }
+
+    formatCountries(countries) {
+        return countries.map((value) => getCountryName(value.iso_3166_1)).join(', ')
+    }
+
+    formatDate(date) {
+        const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+        const year = date.substr(0,4)
+        const month = months[+date.substr(5,2) - 1]
+        const day = date.substr(8,2)
+        return `${day} ${month} ${year}`
+    }
+
+    formatRuntime(runtime) {
+        const formattedRuntime = ('0' + Math.floor(runtime / 60)).substr(-2) + ':' + ('0' + runtime % 60).substr(-2)
+        return `${runtime} мин. / ${formattedRuntime}`
+    }
+
+    formatMoney(money) {
+        return '$' + money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     }
 
     getContent() {
@@ -91,7 +158,7 @@ class MovieLayout extends Component {
             })
             const showStyle = data.backdrop_path ? {backgroundImage: 'url('+ backdropLink +')'} : {}
             const showClass = data.backdrop_path ? 'movie__show has-image' : 'movie__show'
-            const productionCountries = data.production_countries.map((value) => getCountryName(value.iso_3166_1)).join(', ')
+            
             return (
                 <div className = "movie">
                     <div className = {showClass} style = {showStyle}>
@@ -111,13 +178,12 @@ class MovieLayout extends Component {
                                     <img src = {posterLink}/>
                                 </div>
                                 <div className = "movie__info">
-                                    <p>Страна: {productionCountries}</p>
-                                    <p>Слоган: {data.tagline}</p>
-                                    <p>Статус: {data.status}</p>
-                                    <p>Дата выхода: {data.release_date}</p>
-                                    <p>Время: {data.runtime} мин.</p>
-                                    <p>Бюджет: ${data.budget}</p>
-                                    <p>Сборы: ${data.revenue}</p>
+                                    {this.getProductionCountries()}
+                                    {this.getTagline()}
+                                    {this.getReleaseDate()}
+                                    {this.getBudget()}
+                                    {this.getRevenue()}
+                                    {this.getRuntime()}
                                 </div>
                                 <div className = "movie__credits">
                                     <p>В главных ролях:</p>
