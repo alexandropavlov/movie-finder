@@ -79,4 +79,30 @@
 		vertical-align: top;
 		padding: 0 0 0 10px;
 	}
+
+	&__link {
+		color: #fff;
+	}
+
+	&__rating {
+
+	}
+	
+	&__rating-number {
+		font-size: 18px;
+
+		&.is-red {
+			color: red;
+		}
+		&.is-gray {
+			color: gray;
+		}
+		&.is-green {
+			color: green;
+		}
+	}
+
+	&__rating-count {
+		font-size: 12px;
+	}
 }

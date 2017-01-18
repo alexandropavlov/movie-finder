@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import theMovieDb from '../../lib/themoviedb'
 import { rusify } from '../../utils'
-import { connect } from 'react-redux'
-import { loadGenres } from '../../AC/genres'
 import { browserHistory } from 'react-router'
 import MovieTrailer from '../MovieTrailer'
 import getCountryName from '../../lib/isocountries'
+import { Link } from 'react-router'
 import './style.scss'
 
 class MovieLayout extends Component {
@@ -24,10 +23,6 @@ class MovieLayout extends Component {
     }
 
     componentDidMount() {
-        this.props.loadGenres({
-            callApi: theMovieDb.genres.getList,
-            callApiData: rusify({})
-        })
         this.update()
     }
 
@@ -92,6 +87,11 @@ class MovieLayout extends Component {
         } 
     }
 
+    getYear() {
+        const { data } = this.state
+        return (data && data.release_date) ? (<p>Год: {data.release_date.substr(0,4)}</p>) : null
+    }
+
     getProductionCountries() {
         const { data } = this.state
         return (data && data.production_countries && data.production_countries.length)
@@ -102,6 +102,24 @@ class MovieLayout extends Component {
     getTagline() {
         const { data } = this.state
         return (data && data.tagline) ? (<p>Слоган: {data.tagline}</p>) : null
+    }
+
+    getGenres() {
+        const { data } = this.state
+        if (data && data.genres && data.genres.length) {
+            const genreLinks = data.genres.reduce((prev, genre, i, arr) => {
+                const link = `/category/${genre.id}`
+                if (i < arr.length - 1) {
+                    prev.push(<span key = {genre.id}><Link className = "movie__link" to = {link}>{genre.name}</Link>, </span>)
+                } else {
+                    prev.push(<span key = {genre.id}><Link className = "movie__link" to = {link}>{genre.name}</Link></span>)
+                }
+                return prev
+            }, [])
+            return (<p>Жанры: {genreLinks}</p>)
+        } else {
+            return null
+        }
     }
 
     getRuntime() {
@@ -145,6 +163,30 @@ class MovieLayout extends Component {
         return '$' + money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     }
 
+    getRating() {
+        const { data } = this.state
+        //console.log('get rating - data', data)
+        return (data)
+            ? (<p className = "movie__rating">
+                Рейтинг: <span className = {this.getRatingNumberClasses()}>{data.vote_average} </span>
+                <span className = "movie__rating-count">(голосов: {data.vote_count})</span>
+            </p>)
+            : null
+    }
+
+    getRatingNumberClasses() {
+        const { data } = this.state
+        let colorClass;
+        if (data.vote_average < 5) {
+            colorClass = 'is-red'
+        } else if (5 <= data.vote_average && data.vote_average < 7) {
+            colorClass = 'is-gray'
+        } else {
+            colorClass = 'is-green'
+        }
+        return `movie__rating-number ${colorClass}`
+    }
+
     getContent() {
         const { data } = this.state
         if (data) {
@@ -178,12 +220,15 @@ class MovieLayout extends Component {
                                     <img src = {posterLink}/>
                                 </div>
                                 <div className = "movie__info">
+                                    {this.getYear()}
                                     {this.getProductionCountries()}
                                     {this.getTagline()}
+                                    {this.getGenres()}
                                     {this.getReleaseDate()}
                                     {this.getBudget()}
                                     {this.getRevenue()}
                                     {this.getRuntime()}
+                                    {this.getRating()}
                                 </div>
                                 <div className = "movie__credits">
                                     <p>В главных ролях:</p>
@@ -208,8 +253,5 @@ class MovieLayout extends Component {
     }
 }
 
-export default connect(state => ({
-    genres: state.genres
-}), {
-    loadGenres
-})(MovieLayout)
+export default MovieLayout
+
