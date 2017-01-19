@@ -43,10 +43,10 @@ class MoviePreview extends Component {
 
     render() {
         const { movie, number } = this.props
-        const imgLink = theMovieDb.common.getImage({
+        const imgLink = (movie.poster_path) ? theMovieDb.common.getImage({
             size: 'w300',
             file: movie.poster_path
-        })
+        }) : '/images/no-image-portrait.png'
         const link = `/movie/${movie.id}`
         return (
         	<div className = "movie-preview">

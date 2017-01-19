@@ -79,12 +79,32 @@ class MovieLayout extends Component {
             return (
                 <div>
                     <h4>{this.state.trailers.youtube[0].name}</h4>
-                    <iframe width = "560" height = "315" src = {link} frameBorder = "0" allowfullscreen></iframe>
+                    <iframe width = "560" height = "315" src = {link} frameBorder = "0" allowFullScreen></iframe>
                 </div>
             )
         } else {
             return null
         } 
+    }
+
+    getCast() {
+        const { credits } = this.state
+        return (credits && credits.cast && credits.cast.length)
+            ? (<div>
+                <h4 className = "movie__cast-title">В главных ролях:</h4>
+                {credits.cast.slice(0, 10).map((person) => (<p className = "movie__cast-person" key = {person.cast_id}>{person.name}</p>))}
+            </div>)
+            : null
+    }
+
+    getCrew() {
+        const { credits } = this.state
+        if (credits && credits.crew && credits.crew.length) {
+            const director = credits.crew.reduce((prev, person) => person.job.toLowerCase() === 'director' ? person.name : prev, null)
+            return director ? (<p>Режиссер: {director}</p>) : null
+        } else {
+            return null
+        }
     }
 
     getYear() {
@@ -165,7 +185,6 @@ class MovieLayout extends Component {
 
     getRating() {
         const { data } = this.state
-        //console.log('get rating - data', data)
         return (data)
             ? (<p className = "movie__rating">
                 Рейтинг: <span className = {this.getRatingNumberClasses()}>{data.vote_average} </span>
@@ -190,10 +209,12 @@ class MovieLayout extends Component {
     getContent() {
         const { data } = this.state
         if (data) {
-            const posterLink = theMovieDb.common.getImage({
+            const posterLink = (data.poster_path) ? theMovieDb.common.getImage({
                 size: 'w185',
                 file: data.poster_path
-            })
+            }) : '/images/no-image-portrait.png'
+            //posterLink = posterLink ? posterLink : 
+            
             const backdropLink = theMovieDb.common.getImage({
                 size: 'w1920',
                 file: data.backdrop_path
@@ -223,6 +244,7 @@ class MovieLayout extends Component {
                                     {this.getYear()}
                                     {this.getProductionCountries()}
                                     {this.getTagline()}
+                                    {this.getCrew()}
                                     {this.getGenres()}
                                     {this.getReleaseDate()}
                                     {this.getBudget()}
@@ -231,7 +253,7 @@ class MovieLayout extends Component {
                                     {this.getRating()}
                                 </div>
                                 <div className = "movie__credits">
-                                    <p>В главных ролях:</p>
+                                    {this.getCast()}
                                 </div>
                             </div>
                         </div>
