@@ -46,7 +46,7 @@ class MovieTrailer extends Component {
             return (
                 <div>
                     <h4>{this.state.trailers.youtube[0].name}</h4>
-                    <iframe width = "560" height = "315" src = {link} frameBorder = "0" allowfullscreen></iframe>
+                    <iframe width = "560" height = "315" src = {link} frameBorder = "0" allowFullScreen></iframe>
                 </div>
             )  
         } else {

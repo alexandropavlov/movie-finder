@@ -4,6 +4,7 @@ import Root from './RouteHandlers/Root'
 import Index from './RouteHandlers/Index'
 import Category from './RouteHandlers/Category'
 import Movie from './RouteHandlers/Movie'
+import Search from './RouteHandlers/Search'
 import NotFound from './RouteHandlers/NotFound'
 
 export default (
@@ -15,6 +16,7 @@ export default (
             	<Route path = ":page" component = {Category}></Route>
             </Route>
             <Route path = "/movie/:id" component = {Movie} />
+            <Route path = "/search" component = {Search} />
             <Route path = "*" component={NotFound} />
         </Route>
     </Router>

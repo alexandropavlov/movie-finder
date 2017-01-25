@@ -60,33 +60,6 @@ class MovieLayout extends Component {
         })
     }
 
-    getTrailer() {
-        if (!this.state.trailers) {
-            theMovieDb.movies.getTrailers(rusify({
-                id: this.props.id
-            }), (response) => {
-                let trailers = JSON.parse(response)
-                this.setState({
-                    trailers
-                })
-                console.log('this.state', this.state)
-            }, (response) => {
-                //error
-            })
-            return null
-        } else if (this.state.trailers && this.state.trailers.youtube.length) {
-            const link = `https://www.youtube.com/embed/${this.state.trailers.youtube[0].source}`
-            return (
-                <div>
-                    <h4>{this.state.trailers.youtube[0].name}</h4>
-                    <iframe width = "560" height = "315" src = {link} frameBorder = "0" allowFullScreen></iframe>
-                </div>
-            )
-        } else {
-            return null
-        } 
-    }
-
     getCast() {
         const { credits } = this.state
         return (credits && credits.cast && credits.cast.length)
@@ -213,7 +186,6 @@ class MovieLayout extends Component {
                 size: 'w185',
                 file: data.poster_path
             }) : '/images/no-image-portrait.png'
-            //posterLink = posterLink ? posterLink : 
             
             const backdropLink = theMovieDb.common.getImage({
                 size: 'w1920',

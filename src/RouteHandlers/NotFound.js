@@ -7,7 +7,9 @@ class NotFound extends Component {
 
     render() {
         return (
-            <div>Страница не найдена</div>
+        	<div className = "container">
+            	<h3>Страница не найдена</h3>
+            </div>
         )
     }
 }
