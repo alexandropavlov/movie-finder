@@ -16,11 +16,13 @@ class Paginator extends Component {
     getPages() {
     	const { basePath, current, total } = this.props
         let className = 'paginator__page'
+        let activeClassName = 'is-active'
     	let pageArr = []
     	if (total <= this.range * 2) {
     		for (let i = 1; i <= total; i++) {
 	    		const link = basePath + `${i}`;
-	    		pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
+                const currentClassName = (i === current) ? `${className} ${activeClassName}` : className
+	    		pageArr.push(<Link to = {link} className = {currentClassName} key = {i}>{i}</Link>)
 	    	}
     	} else {
     		if (1 <= current && current <= this.range) {
@@ -28,9 +30,10 @@ class Paginator extends Component {
     			console.log('current near left boundary');
     			for (let i = 1; i <= current + this.margin; i++) {
 		    		const link = basePath + `${i}`;
-		    		pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
+                    const currentClassName = (i === current) ? `${className} ${activeClassName}` : className
+		    		pageArr.push(<Link to = {link} className = {currentClassName} key = {i}>{i}</Link>)
 		    	}
-		    	pageArr.push(<span key = "div-1">...</span>)
+		    	pageArr.push(<span className = "paginator__divider" key = "div-1">...</span>)
 		    	for (let i = total - this.margin + 1; i <= total; i++) {
 		    		const link = basePath + `${i}`;
 		    		pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
@@ -42,10 +45,11 @@ class Paginator extends Component {
 		    		const link = basePath + `${i}`;
 		    		pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
 		    	}
-		    	pageArr.push(<span key = "div-1">...</span>)
+		    	pageArr.push(<span className = "paginator__divider" key = "div-1">...</span>)
 		    	for (let i = current - this.margin; i <= total; i++) {
 		    		const link = basePath + `${i}`;
-		    		pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
+                    const currentClassName = (i === current) ? `${className} ${activeClassName}` : className
+		    		pageArr.push(<Link to = {link} className = {currentClassName} key = {i}>{i}</Link>)
 		    	}
     		} else {
     			// current in between
@@ -54,12 +58,13 @@ class Paginator extends Component {
                     const link = basePath + `${i}`;
                     pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
                 }
-		    	pageArr.push(<span key = "div-1">...</span>)
+		    	pageArr.push(<span className = "paginator__divider" key = "div-1">...</span>)
 		    	for (let i = current - this.margin; i <= current + this.margin; i++) {
 		    		const link = basePath + `${i}`;
-		    		pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
+                    const currentClassName = (i === current) ? `${className} ${activeClassName}` : className
+		    		pageArr.push(<Link to = {link} className = {currentClassName} key = {i}>{i}</Link>)
 		    	}
-		    	pageArr.push(<span key = "div-2">...</span>)
+		    	pageArr.push(<span className = "paginator__divider" key = "div-2">...</span>)
 		    	for (let i = total - this.margin + 1; i <= total; i++) {
                     const link = basePath + `${i}`;
                     pageArr.push(<Link to = {link} className = {className} key = {i}>{i}</Link>)
@@ -74,9 +79,9 @@ class Paginator extends Component {
     	const { basePath, current } = this.props
     	const link = basePath + `${current - 1}`
     	return current != 1 ? (
-            <Link to = {link} className = "paginator__button paginator__button_prev">prev</Link>
+            <Link to = {link} className = "paginator__button paginator__button_prev">&lt;</Link>
         ) : (
-            <button className = "paginator__button paginator__button_prev">prev</button>
+            <button className = "paginator__button paginator__button_prev">&lt;</button>
         )
     }
 
@@ -84,9 +89,9 @@ class Paginator extends Component {
     	const { basePath, current, total } = this.props
     	const link = basePath + `${current + 1}`
     	return current != total ? (
-            <Link to = {link} className = "paginator__button paginator__button_next">next</Link>
+            <Link to = {link} className = "paginator__button paginator__button_next">&gt;</Link>
         ) : (
-            <button className = "paginator__button paginator__button_next">next</button>
+            <button className = "paginator__button paginator__button_next">&gt;</button>
         )
     }
 

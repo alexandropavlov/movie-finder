@@ -41155,16 +41155,20 @@
 	                'div',
 	                { className: 'container' },
 	                _react2.default.createElement(
-	                    'h1',
-	                    { className: 'category__name' },
-	                    this.getCategoryName()
-	                ),
-	                _react2.default.createElement(
-	                    'ul',
-	                    { className: 'category__list' },
-	                    this.getMovies()
-	                ),
-	                this.getPaginator()
+	                    'div',
+	                    { className: 'category' },
+	                    _react2.default.createElement(
+	                        'h1',
+	                        { className: 'category__name' },
+	                        this.getCategoryName()
+	                    ),
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { className: 'category__list' },
+	                        this.getMovies()
+	                    ),
+	                    this.getPaginator()
+	                )
 	            );
 	        }
 	    }]);
@@ -41432,13 +41436,15 @@
 	                total = _props.total;
 	
 	            var className = 'paginator__page';
+	            var activeClassName = 'is-active';
 	            var pageArr = [];
 	            if (total <= this.range * 2) {
 	                for (var i = 1; i <= total; i++) {
 	                    var link = basePath + ('' + i);
+	                    var currentClassName = i === current ? className + ' ' + activeClassName : className;
 	                    pageArr.push(_react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: link, className: className, key: i },
+	                        { to: link, className: currentClassName, key: i },
 	                        i
 	                    ));
 	                }
@@ -41448,15 +41454,16 @@
 	                    console.log('current near left boundary');
 	                    for (var _i = 1; _i <= current + this.margin; _i++) {
 	                        var _link = basePath + ('' + _i);
+	                        var _currentClassName = _i === current ? className + ' ' + activeClassName : className;
 	                        pageArr.push(_react2.default.createElement(
 	                            _reactRouter.Link,
-	                            { to: _link, className: className, key: _i },
+	                            { to: _link, className: _currentClassName, key: _i },
 	                            _i
 	                        ));
 	                    }
 	                    pageArr.push(_react2.default.createElement(
 	                        'span',
-	                        { key: 'div-1' },
+	                        { className: 'paginator__divider', key: 'div-1' },
 	                        '...'
 	                    ));
 	                    for (var _i2 = total - this.margin + 1; _i2 <= total; _i2++) {
@@ -41480,14 +41487,15 @@
 	                    }
 	                    pageArr.push(_react2.default.createElement(
 	                        'span',
-	                        { key: 'div-1' },
+	                        { className: 'paginator__divider', key: 'div-1' },
 	                        '...'
 	                    ));
 	                    for (var _i4 = current - this.margin; _i4 <= total; _i4++) {
 	                        var _link4 = basePath + ('' + _i4);
+	                        var _currentClassName2 = _i4 === current ? className + ' ' + activeClassName : className;
 	                        pageArr.push(_react2.default.createElement(
 	                            _reactRouter.Link,
-	                            { to: _link4, className: className, key: _i4 },
+	                            { to: _link4, className: _currentClassName2, key: _i4 },
 	                            _i4
 	                        ));
 	                    }
@@ -41504,20 +41512,21 @@
 	                    }
 	                    pageArr.push(_react2.default.createElement(
 	                        'span',
-	                        { key: 'div-1' },
+	                        { className: 'paginator__divider', key: 'div-1' },
 	                        '...'
 	                    ));
 	                    for (var _i6 = current - this.margin; _i6 <= current + this.margin; _i6++) {
 	                        var _link6 = basePath + ('' + _i6);
+	                        var _currentClassName3 = _i6 === current ? className + ' ' + activeClassName : className;
 	                        pageArr.push(_react2.default.createElement(
 	                            _reactRouter.Link,
-	                            { to: _link6, className: className, key: _i6 },
+	                            { to: _link6, className: _currentClassName3, key: _i6 },
 	                            _i6
 	                        ));
 	                    }
 	                    pageArr.push(_react2.default.createElement(
 	                        'span',
-	                        { key: 'div-2' },
+	                        { className: 'paginator__divider', key: 'div-2' },
 	                        '...'
 	                    ));
 	                    for (var _i7 = total - this.margin + 1; _i7 <= total; _i7++) {
@@ -41544,11 +41553,11 @@
 	            return current != 1 ? _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: link, className: 'paginator__button paginator__button_prev' },
-	                'prev'
+	                '<'
 	            ) : _react2.default.createElement(
 	                'button',
 	                { className: 'paginator__button paginator__button_prev' },
-	                'prev'
+	                '<'
 	            );
 	        }
 	    }, {
@@ -41563,11 +41572,11 @@
 	            return current != total ? _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: link, className: 'paginator__button paginator__button_next' },
-	                'next'
+	                '>'
 	            ) : _react2.default.createElement(
 	                'button',
 	                { className: 'paginator__button paginator__button_next' },
-	                'next'
+	                '>'
 	            );
 	        }
 	    }, {
@@ -41624,7 +41633,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".paginator__button {\n  background-color: transparent;\n  padding: 5px 10px;\n  border: 1px solid #fff;\n  font-size: 12px;\n  color: #fff;\n  text-decoration: none; }\n\n.paginator__page {\n  background-color: transparent;\n  padding: 5px 10px;\n  border: 1px solid #fff;\n  font-size: 12px;\n  color: #fff;\n  text-decoration: none; }\n", ""]);
+	exports.push([module.id, ".paginator {\n  padding-top: 40px; }\n  .paginator__button {\n    background-color: transparent;\n    padding: 5px 10px;\n    border: 1px solid #fff;\n    font-size: 12px;\n    color: #fff;\n    text-decoration: none;\n    outline: 0;\n    transition: .3s; }\n    .paginator__button:hover {\n      background-color: #fff;\n      color: #000; }\n  .paginator__page {\n    background-color: transparent;\n    padding: 5px 10px;\n    border: 1px solid #fff;\n    font-size: 12px;\n    color: #fff;\n    text-decoration: none;\n    outline: 0;\n    transition: .3s; }\n    .paginator__page:hover {\n      background-color: #fff;\n      color: #000; }\n    .paginator__page.is-active {\n      background-color: #fff;\n      color: #000; }\n  .paginator__divider {\n    background-color: transparent;\n    padding: 5px 10px;\n    border: 1px solid #fff;\n    font-size: 12px; }\n", ""]);
 	
 	// exports
 
@@ -41664,7 +41673,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".category__name {\n  text-transform: capitalize; }\n\n.category__list {\n  margin: 0;\n  padding: 0;\n  list-style-type: none; }\n\n.category__item {\n  margin: 0;\n  padding: 0; }\n", ""]);
+	exports.push([module.id, ".category {\n  padding-bottom: 80px; }\n  .category__name {\n    text-transform: capitalize; }\n  .category__list {\n    margin: 0;\n    padding: 0;\n    list-style-type: none; }\n  .category__item {\n    margin: 0;\n    padding: 0; }\n", ""]);
 	
 	// exports
 
@@ -42814,18 +42823,22 @@
 	                'div',
 	                { className: 'container' },
 	                _react2.default.createElement(
-	                    'h1',
-	                    { className: 'category__name' },
-	                    '\u041F\u043E\u0438\u0441\u043A \xAB',
-	                    this.props.query,
-	                    '\xBB'
-	                ),
-	                _react2.default.createElement(
-	                    'ul',
-	                    { className: 'category__list' },
-	                    this.getMovies()
-	                ),
-	                this.getPaginator()
+	                    'div',
+	                    { className: 'category' },
+	                    _react2.default.createElement(
+	                        'h1',
+	                        { className: 'category__name' },
+	                        '\u041F\u043E\u0438\u0441\u043A \xAB',
+	                        this.props.query,
+	                        '\xBB'
+	                    ),
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { className: 'category__list' },
+	                        this.getMovies()
+	                    ),
+	                    this.getPaginator()
+	                )
 	            );
 	        }
 	    }]);

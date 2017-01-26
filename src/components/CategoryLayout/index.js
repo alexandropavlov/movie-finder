@@ -79,9 +79,11 @@ class CategoryLayout extends Component {
     render() {
         return (
             <div className = "container">
-                <h1 className = "category__name">{this.getCategoryName()}</h1>
-                <ul className = "category__list">{this.getMovies()}</ul>
-                {this.getPaginator()}
+                <div className = "category">
+                    <h1 className = "category__name">{this.getCategoryName()}</h1>
+                    <ul className = "category__list">{this.getMovies()}</ul>
+                    {this.getPaginator()}
+                </div>
             </div>
         )
     }
