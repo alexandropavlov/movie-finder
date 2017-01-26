@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import SearchLayout from '../components/SearchLayout'
 
 class Search extends Component {
     static propTypes = {
@@ -7,7 +8,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div>Поиск</div>
+            <SearchLayout query = {this.props.location.query.q} page = {this.props.location.query.page}/>
         )
     }
 }

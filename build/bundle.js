@@ -63,7 +63,7 @@
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	__webpack_require__(314);
+	__webpack_require__(317);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21518,7 +21518,7 @@
 	
 	var _Search2 = _interopRequireDefault(_Search);
 	
-	var _NotFound = __webpack_require__(313);
+	var _NotFound = __webpack_require__(316);
 	
 	var _NotFound2 = _interopRequireDefault(_NotFound);
 	
@@ -38711,7 +38711,8 @@
 																	_react2.default.createElement(
 																					'form',
 																					{ className: 'search-form__form', action: '/search', method: 'get' },
-																					_react2.default.createElement('input', { className: 'search-form__input', name: 'q', type: 'text', placeholder: '\u041D\u0430\u0439\u0442\u0438 \u0444\u0438\u043B\u044C\u043C' })
+																					_react2.default.createElement('input', { className: 'search-form__input', name: 'q', type: 'text', placeholder: '\u041D\u0430\u0439\u0442\u0438 \u0444\u0438\u043B\u044C\u043C' }),
+																					_react2.default.createElement('input', { type: 'hidden', name: 'page', value: '1' })
 																	)
 													);
 									}
@@ -41007,11 +41008,7 @@
 	    _createClass(Category, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_CategoryLayout2.default, { page: this.props.params.page, id: this.props.params.id })
-	            );
+	            return _react2.default.createElement(_CategoryLayout2.default, { page: this.props.params.page, id: this.props.params.id });
 	        }
 	    }]);
 	
@@ -42646,6 +42643,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _SearchLayout = __webpack_require__(313);
+	
+	var _SearchLayout2 = _interopRequireDefault(_SearchLayout);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42666,11 +42667,7 @@
 	    _createClass(Search, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                '\u041F\u043E\u0438\u0441\u043A'
-	            );
+	            return _react2.default.createElement(_SearchLayout2.default, { query: this.props.location.query.q, page: this.props.location.query.page });
 	        }
 	    }]);
 	
@@ -42682,6 +42679,211 @@
 
 /***/ },
 /* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _themoviedb = __webpack_require__(285);
+	
+	var _themoviedb2 = _interopRequireDefault(_themoviedb);
+	
+	var _utils = __webpack_require__(272);
+	
+	var _MoviePreview = __webpack_require__(296);
+	
+	var _MoviePreview2 = _interopRequireDefault(_MoviePreview);
+	
+	var _reactRedux = __webpack_require__(236);
+	
+	var _genres = __webpack_require__(291);
+	
+	var _Paginator = __webpack_require__(299);
+	
+	var _Paginator2 = _interopRequireDefault(_Paginator);
+	
+	__webpack_require__(314);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SearchLayout = function (_Component) {
+	    _inherits(SearchLayout, _Component);
+	
+	    function SearchLayout() {
+	        _classCallCheck(this, SearchLayout);
+	
+	        var _this = _possibleConstructorReturn(this, (SearchLayout.__proto__ || Object.getPrototypeOf(SearchLayout)).call(this));
+	
+	        _this.state = {
+	            page: null,
+	            totalPages: null,
+	            movieList: null
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(SearchLayout, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.props.loadGenres({
+	                callApi: _themoviedb2.default.genres.getList,
+	                callApiData: (0, _utils.rusify)({})
+	            });
+	            this.update();
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate(prevProps) {
+	            if (this.props.page != prevProps.page) {
+	                this.update();
+	            }
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var _this2 = this;
+	
+	            _themoviedb2.default.search.getMovie((0, _utils.rusify)({
+	                query: this.props.query,
+	                page: this.props.page
+	            }), function (response) {
+	                var data = JSON.parse(response);
+	                console.log('data', data);
+	                _this2.setState({
+	                    page: data.page,
+	                    totalPages: data.total_pages,
+	                    movieList: data.results
+	                });
+	            }, function (response) {
+	                //error
+	            });
+	        }
+	    }, {
+	        key: 'getCategoryName',
+	        value: function getCategoryName() {
+	            var _props = this.props,
+	                genres = _props.genres,
+	                id = _props.id;
+	
+	            return genres ? genres.reduce(function (value, current) {
+	                return current.id == id ? current.name : value;
+	            }, null) : null;
+	        }
+	    }, {
+	        key: 'getMovies',
+	        value: function getMovies() {
+	            var _state = this.state,
+	                movieList = _state.movieList,
+	                page = _state.page;
+	            var genres = this.props.genres;
+	
+	            return movieList ? movieList.map(function (movie, i) {
+	                var number = (page - 1) * 20 + i + 1;
+	                return _react2.default.createElement(
+	                    'li',
+	                    { className: 'category__item', key: movie.id },
+	                    _react2.default.createElement(_MoviePreview2.default, { movie: movie, genres: genres, number: number })
+	                );
+	            }) : null;
+	        }
+	    }, {
+	        key: 'getPaginator',
+	        value: function getPaginator() {
+	            var basePath = '/search?q=' + this.props.query + '&page=';
+	            return this.state.page ? _react2.default.createElement(_Paginator2.default, { basePath: basePath, total: this.state.totalPages, current: this.state.page }) : null;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    { className: 'category__name' },
+	                    '\u041F\u043E\u0438\u0441\u043A \xAB',
+	                    this.props.query,
+	                    '\xBB'
+	                ),
+	                _react2.default.createElement(
+	                    'ul',
+	                    { className: 'category__list' },
+	                    this.getMovies()
+	                ),
+	                this.getPaginator()
+	            );
+	        }
+	    }]);
+	
+	    return SearchLayout;
+	}(_react.Component);
+	
+	SearchLayout.propTypes = {};
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	    return {
+	        genres: state.genres
+	    };
+	}, {
+	    loadGenres: _genres.loadGenres
+	})(SearchLayout);
+
+/***/ },
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(315);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(278)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 315 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(277)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42735,13 +42937,13 @@
 	exports.default = NotFound;
 
 /***/ },
-/* 314 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(315);
+	var content = __webpack_require__(318);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(278)(content, {});
@@ -42761,7 +42963,7 @@
 	}
 
 /***/ },
-/* 315 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(277)();

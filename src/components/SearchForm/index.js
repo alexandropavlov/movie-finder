@@ -12,6 +12,7 @@ class SearchForm extends Component {
         	<div className = "search-form">
 	        	<form className = "search-form__form" action="/search" method = "get">
 					<input className = "search-form__input" name = "q" type = "text" placeholder = "Найти фильм"></input>
+					<input type = "hidden" name = "page" value = "1"></input>
 				</form>
 			</div>
         )
